@@ -1,0 +1,24 @@
+.footer {
+  display: block;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #002366;
+  color: white;
+  padding: 0.6rem 4rem;
+  text-align: center;
+}
+
+.github-mark {
+  -webkit-filter: invert(100%); /* Safari/Chrome */
+  filter: invert(100%);
+}
+
+.github-mark:hover {
+  -webkit-filter: invert(80%); /* Safari/Chrome */
+  filter: invert(80%);
+  -webkit-filter: brightness(100%); /* Safari/Chrome */
+  filter: brightness(100%);
+  content: attr(title);
+}
