@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Arimo&family=Roboto+Mono&family=Roboto:wght@100&display=swap");
+
+@import url("./nav.css");
+@import url("./footer.css");
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(30, 30, 49);
+}
+
+a {
+  text-decoration: none;
+  color: rgb(226, 192, 1);
+  letter-spacing: -0.1rem;
+}
+
+a:hover {
+  -webkit-filter: brightness(125%); /* Safari/Chrome */
+  filter: brightness(125%);
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
