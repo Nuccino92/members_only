@@ -8,12 +8,13 @@ const User = mongoose.model(
     username: {
       type: String,
       required: true,
+      unique: true,
     },
     password: {
       type: String,
       required: true,
     },
-    fireName: {
+    firstName: {
       type: String,
       required: true,
     },
