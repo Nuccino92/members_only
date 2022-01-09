@@ -1,7 +1,12 @@
-<%- include('./partials/head.ejs')  %> 
+<%- include('./partials/head.ejs') %> 
   <body>
-    <%- include('./partials/nav') %> 
-    WELCOME TO THE INDEX
-    <%- include('./partials/footer')  %> 
+    <% if (user) { %>  
+     <%- include('./partials/user-nav') %> 
+      <h1>WELCOME <%= user.username %> </h1>
+    <% } else { %>  
+      <%- include('./partials/nav') %> 
+      <h1>YOUR NOT LOGGED IN</h1>
+    <% } %> 
+    <%- include('./partials/footer') %> 
   </body>
 </html>
