@@ -1,0 +1,18 @@
+<%- include('./partials/head.ejs') %>
+<body>
+  <%- include('./partials/linked-nav.ejs', {title: 'Sign Up Below'}) %>
+  <div class="sign-up">
+    <form action="/sign-up" method="POST">
+      <label for="username">Username</label>
+      <input name="username" placeholder="username" type="text" required />
+      <label for="password">Password</label>
+      <input name="password" placeholder="password" type="password" required />
+      <label for="firstName">First name</label>
+      <input name="firstName" placeholder="first name" type="text" required />
+      <label for="lastName">Last name</label>
+      <input name="lastName" placeholder="last name" type="text" required />
+      <button>Sign Up!</button>
+    </form>
+  </div>
+  <%- include('./partials/footer.ejs') %>
+</body>
