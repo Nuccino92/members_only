@@ -32,6 +32,11 @@ app.use(
   })
 );
 
+app.use(function (req, res, next) {
+  res.locals.messages = require("express-messages")(req, res);
+  next();
+});
+
 app.use(passport.initialize());
 
 passport.use(
@@ -70,4 +75,12 @@ app.use("/log-in", logInRoute);
 app.use("/sign-up", signUpRoute);
 app.use("/log-out", logOutRoute);
 
+app.use((req, res) => {
+  res.status(404).render("error");
+});
+
 app.listen(3000, () => console.log("app listening on port 3000!"));
+
+module.exports = {
+  db,
+};
