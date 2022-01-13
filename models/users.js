@@ -9,7 +9,7 @@ const User = mongoose.model(
       type: String,
       required: [true, "Name is required"],
       unique: true,
-      minlength: [6, "Name should be longer than 5 characters"],
+      minlength: [2, "Name should be longer than 5 characters"],
       maxlength: [17, "Name should be shorter than 18 characters"],
     },
     password: {
