@@ -3,6 +3,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require("passport");
+const flash = require("express-flash-messages");
 const localStrategy = require("passport-local").Strategy;
 const passwordUtils = require("./utils/passwords");
 
@@ -41,18 +42,27 @@ app.use(passport.initialize());
 
 passport.use(
   new localStrategy((username, password, done) => {
-    User.findOne({ username: username }, (err, user) => {
-      if (err) {
-        return done(err);
+    User.findOne(
+      { username: new RegExp("^" + username + "$", "i") },
+      (err, user) => {
+        if (err) {
+          return done(err);
+        }
+        if (!user) {
+          return done(null, false, {
+            message: "The information you entered was incorrect",
+          });
+        }
+
+        if (!passwordUtils.compareHash(password, user.password)) {
+          return done(null, false, {
+            message: "The information you entered was incorrect",
+          });
+        }
+
+        return done(null, user);
       }
-      if (!user) {
-        return done(null, false, { message: "Incorrect Username" });
-      }
-      if (!passwordUtils.compareHash(password, user.password)) {
-        return done(null, false, { message: "Incorrect password" });
-      }
-      return done(null, user);
-    });
+    );
   })
 );
 
@@ -66,9 +76,14 @@ passport.deserializeUser(function (id, done) {
   });
 });
 
-app.use(passport.session());
-app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
+
+// passport
+app.use(passport.session());
+app.use(flash());
+
+// handle post bodies
+app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => res.render("index", { user: req.user }));
 app.use("/log-in", logInRoute);
