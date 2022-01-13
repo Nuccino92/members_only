@@ -3,6 +3,7 @@
 @import url("./nav.css");
 @import url("./footer.css");
 @import url("./log-in.css");
+@import url("./sign-up.css");
 
 * {
   margin: 0;
