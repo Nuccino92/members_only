@@ -1,25 +1,48 @@
-const passwordUtils = require("../utils/passwords");
-
 const User = require("../models/users");
+const { generateHash } = require("../utils/passwords");
 
 const signUp_Index = (req, res) => {
-  res.render("sign-up");
+  res.render("sign-up", { showErrors: false, errors: "" });
 };
 
-const signUp_post = (req, res, next) => {
+const signUp_post = async (req, res, next) => {
+  const { username, password, firstName, lastName } = req.body;
+
+  // create a user
   const user = new User({
-    username: req.body.username,
-    password: passwordUtils.generateHash(req.body.password),
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
+    username,
+    // use generate hash function to hide password
+    password: generateHash(password),
+    firstName,
+    lastName,
     membership: false,
-  }).save((err) => {
-    if (err) {
-      return next(err);
-    }
-    return next(err);
   });
-  res.redirect("/");
+
+  // save created user
+  user.save((err) => {
+    let error = [];
+    // check for mongo errors
+    if (err) {
+      // check for unique error code
+      if (err.code === 11000) {
+        req.flash(error.push(["Username already exists"]));
+      } else {
+        // any other error
+        req.flash(
+          error.push(["error: there was a problem with your registration "])
+        );
+      }
+      // give sign-up the errors
+      res.render("sign-up", {
+        showErrors: true,
+        errors: error,
+      });
+    }
+    // if no errors render index and pass the user
+    else {
+      res.render("index", { user: user });
+    }
+  });
 };
 
 module.exports = {
