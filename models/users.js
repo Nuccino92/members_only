@@ -7,20 +7,23 @@ const User = mongoose.model(
   new Schema({
     username: {
       type: String,
-      required: true,
+      required: [true, "Name is required"],
       unique: true,
+      minlength: [6, "Name should be longer than 5 characters"],
+      maxlength: [17, "Name should be shorter than 18 characters"],
     },
     password: {
       type: String,
-      required: true,
+      required: [true, "Password is required"],
+      minlength: [6, "Password should be longer than 5 characters"],
     },
     firstName: {
       type: String,
-      required: true,
+      required: [true, "First name is required"],
     },
     lastName: {
       type: String,
-      required: true,
+      required: [true, "Last name is required"],
     },
     membership: {
       type: Boolean,
