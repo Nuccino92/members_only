@@ -1,0 +1,25 @@
+<%- include('./partials/head.ejs') %> <%- include('./partials/linked-nav.ejs',
+{title: 'Create a Message '}) %>
+<div class="post-message">
+  <h1>Create your Message <%= user.username %></h1>
+  <form action="/post-message" method="POST">
+    <label for="title">Title (50 characters or less)</label>
+    <input name="title" type="text" maxlength="50" required />
+    <label for="message">Message (300 charaters or less)</label>
+    <textarea
+      name="message"
+      type="text"
+      rows="7"
+      maxlength="300"
+      required
+    ></textarea>
+    <input
+      style="display: none"
+      name="user"
+      value="<% user.username %>"
+      readonly
+    />
+  </form>
+</div>
+
+<%- include('./partials/footer.ejs') %>
