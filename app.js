@@ -14,6 +14,7 @@ require("dotenv").config();
 const logInRoute = require("./routes/log-inRoute");
 const signUpRoute = require("./routes/sign-upRoute");
 const logOutRoute = require("./routes/log-outRoute");
+const postMessageRoute = require("./routes/post-messageRoute");
 
 const dbuRI = process.env.MONGOOSE_URI;
 
@@ -32,11 +33,6 @@ app.use(
     saveUninitialized: true,
   })
 );
-
-app.use(function (req, res, next) {
-  res.locals.messages = require("express-messages")(req, res);
-  next();
-});
 
 app.use(passport.initialize());
 
@@ -89,6 +85,7 @@ app.get("/", (req, res) => res.render("index", { user: req.user }));
 app.use("/log-in", logInRoute);
 app.use("/sign-up", signUpRoute);
 app.use("/log-out", logOutRoute);
+app.use("/post-message", postMessageRoute);
 
 app.use((req, res) => {
   res.status(404).render("error");
