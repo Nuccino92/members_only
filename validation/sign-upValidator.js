@@ -8,8 +8,8 @@ exports.validateUser = [
     .isEmpty()
     .withMessage("User name can not be empty")
     .bail()
-    .isLength({ min: 2 })
-    .withMessage("Username should be at least 2 characters")
+    .isLength({ min: 2, max: 18 })
+    .withMessage("Enter username between ")
     .bail(),
   check("password")
     .trim()
@@ -17,8 +17,8 @@ exports.validateUser = [
     .isEmpty()
     .withMessage("Password can not be empty")
     .bail()
-    .isLength({ min: 5 })
-    .withMessage("Password should be at least 6 characters")
+    .isLength({ min: 5, max: 25 })
+    .withMessage("Enter password between 5-25 characters")
     .bail(),
   (req, res, next) => {
     const errors = validationResult(req);
