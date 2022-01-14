@@ -23,14 +23,13 @@ const signUp_post = async (req, res, next) => {
     let error = [];
     // check for mongo errors
     if (err) {
+      console.log(err);
       // check for unique error code
       if (err.code === 11000) {
         req.flash(error.push(["Username already exists"]));
       } else {
         // any other error
-        req.flash(
-          error.push(["error: there was a problem with your registration "])
-        );
+        req.flash(error.push([err._message]));
       }
       // give sign-up the errors
       res.render("sign-up", {
