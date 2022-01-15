@@ -1,12 +1,18 @@
 <%- include('./partials/head.ejs') %>
 <body>
   <%- include('./partials/linked-nav.ejs', {title: 'Log In Below'}) %>
-  <form action="/log-in" method="POST">
-    <label for="username">Username</label>
-    <input name="username" placeholder="username" type="text" required />
-    <label for="password">Password</label>
-    <input name="password" type="password" required />
-    <button>Log In</button>
-  </form>
-  <%- include('./partials/footer.ejs') %>
+  <div class="log-in">
+    <form id="log-in-form" action="/log-in" method="POST">
+      <label for="username">Username</label>
+      <input name="username" placeholder="username" type="text" required />
+      <label for="password">Password</label>
+      <input name="password" type="password" required />
+      <button>Log In</button>
+    </form>
+  </div>
+  <% if (showErrors) { %> <% errors.forEach((error) => { %>
+  <ul class="errors">
+    <li><%= error %></li>
+  </ul>
+  <% }) %> <% } %> <%- include('./partials/footer.ejs') %>
 </body>
