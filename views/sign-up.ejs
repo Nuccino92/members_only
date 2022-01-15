@@ -1,18 +1,62 @@
-<%- include('./partials/head.ejs') %>
-<body>
-  <%- include('./partials/linked-nav.ejs', {title: 'Sign Up Below'}) %>
-  <div class="sign-up">
-    <form action="/sign-up" method="POST">
-      <label for="username">Username</label>
-      <input name="username" placeholder="username" type="text" required />
-      <label for="password">Password</label>
-      <input name="password" placeholder="password" type="password" required />
-      <label for="firstName">First name</label>
-      <input name="firstName" placeholder="first name" type="text" required />
-      <label for="lastName">Last name</label>
-      <input name="lastName" placeholder="last name" type="text" required />
-      <button>Sign Up!</button>
-    </form>
-  </div>
-  <%- include('./partials/footer.ejs') %>
-</body>
+<%- include('./partials/head.ejs') %> <%- include('./partials/linked-nav.ejs',
+{title: 'Sign Up Below'}) %> <% if (locals.err) { %>
+<h1><%= locals.err %></h1>
+<% } %>
+
+<div class="sign-up">
+  <form action="/sign-up" method="POST" oninput="">
+    <label for="username">Username</label>
+    <input
+      name="username"
+      placeholder="username"
+      type="text"
+      minlength="2"
+      maxlength="18"
+    />
+
+    <label for="password">Password</label>
+    <input
+      id="password"
+      name="password"
+      placeholder="password"
+      type="password"
+      minlength="5"
+      maxlength="25"
+    />
+    <label for="password2">Re-Type Password</label>
+    <input
+      name="password2"
+      id="password2"
+      placeholder="re-type password"
+      type="password"
+      minlength="5"
+      maxlength="25"
+    />
+
+    <label for="firstName">First name</label>
+    <input
+      name="firstName"
+      placeholder="first name"
+      type="text"
+      maxlength="25"
+      required
+    />
+
+    <label for="lastName">Last name</label>
+    <input
+      name="lastName"
+      placeholder="last name"
+      type="text"
+      maxlength="25"
+      required
+    />
+
+    <button id="sign-up-btn">Sign Up!</button>
+  </form>
+</div>
+
+<% if (showErrors) { %> <% errors.forEach((error) => { %>
+<ul class="errors">
+  <li><%= error %></li>
+</ul>
+<% }) %> <% } %> <%- include('./partials/footer.ejs') %>
