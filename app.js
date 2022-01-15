@@ -15,6 +15,7 @@ const logInRoute = require("./routes/log-inRoute");
 const signUpRoute = require("./routes/sign-upRoute");
 const logOutRoute = require("./routes/log-outRoute");
 const postMessageRoute = require("./routes/post-messageRoute");
+const Message = require("./models/messages");
 
 const dbuRI = process.env.MONGOOSE_URI;
 
@@ -81,7 +82,17 @@ app.use(flash());
 // handle post bodies
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => res.render("index", { user: req.user }));
+app.get("/", (req, res) => {
+  Message.find()
+    .sort({ createdAt: -1 })
+    .then((result) => {
+      res.render("index", { user: req.user, messages: result });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 app.use("/log-in", logInRoute);
 app.use("/sign-up", signUpRoute);
 app.use("/log-out", logOutRoute);
