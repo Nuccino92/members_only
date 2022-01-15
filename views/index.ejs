@@ -2,11 +2,24 @@
   <body>
     <% if (user) { %>  
      <%- include('./partials/user-nav') %> 
-      <h1>WELCOME <%= user.username %> </h1>
+      <h1 style="margin-left: 10px;">WELCOME <%= user.username %> </h1>
     <% } else { %>  
       <%- include('./partials/nav') %> 
-      <h1>YOUR NOT LOGGED IN</h1>
+      <h1>Log in to post a message</h1>
     <% } %> 
+  
+   <% if(messages.length > 0) { %> 
+    <div class="messages-container">
+    <% messages.forEach(message => { %> 
+      <div class="message">
+      <h1><%= message.title %> </h1>
+      <p><%= message.message %> </p>
+      <span>posted by <%= message.user %> </span>  
+      <span>on <%= new Intl.DateTimeFormat({year: 'numeric', month: 'long', day: '2-digit'}).format(new Date(message.createdAt))  %> </span>  
+    </div>
+      <% }) %>   
+    </div>
+ <% } %> 
     <%- include('./partials/footer') %> 
   </body>
 </html>
